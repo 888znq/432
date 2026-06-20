@@ -2,9 +2,9 @@
 // Provides an offline-capable app shell cache. Network-first for the main
 // HTML so updates are picked up quickly; cache-first for static assets.
 
-const CACHE_VERSION = 'ai-compile-v1';
+const CACHE_VERSION = 'ai-compile-v2';
 const APP_SHELL = [
-  './app.html',
+  './index.html',
   './manifest.json',
   './icons/icon-72.png',
   './icons/icon-96.png',
@@ -57,7 +57,7 @@ self.addEventListener('fetch', (event) => {
           caches.open(CACHE_VERSION).then((cache) => cache.put(request, copy));
           return response;
         })
-        .catch(() => caches.match(request).then((cached) => cached || caches.match('./app.html')))
+        .catch(() => caches.match(request).then((cached) => cached || caches.match('./index.html')))
     );
     return;
   }
