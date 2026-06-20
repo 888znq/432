@@ -2,7 +2,7 @@
   "name": "AI Compile - Web Edition",
   "short_name": "AI Compile",
   "description": "AI Compile - Web Edition (Manual): an in-browser code editor, live preview and GitHub push tool.",
-  "start_url": "./app.html",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
