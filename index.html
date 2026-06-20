@@ -1680,9 +1680,9 @@ button.btn:disabled { opacity: 0.5; cursor: not-allowed; border-color: #555; col
       btn.addEventListener('click', async () => {
         bar.querySelectorAll('.sc-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        const ghMatch = sc.url.match(/^https:\/\/github\.com\/([^/]+\/[^/]+)\/?$/);
+        const ghMatch = sc.url.match(/^https:\/\/github\.com\/([^/]+)\/([^/]+?)(?:\.git)?(?:\/.*)?\/?$/);
         if (ghMatch) {
-          const repoName = ghMatch[1];
+          const repoName = `${ghMatch[1]}/${ghMatch[2]}`;
           document.querySelectorAll('#repoBar .repo-btn').forEach(b => b.classList.remove('active'));
           const matchingRepo = [...document.querySelectorAll('#repoBar .repo-btn')].find(b => b.title.startsWith(repoName));
           if (matchingRepo) matchingRepo.classList.add('active');
