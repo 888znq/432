@@ -75,44 +75,44 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: #000432; f
 /* ── Shortcut Bar ── */
 #shortcutBar {
   position: fixed; bottom: 100px; left: 0; width: 100%; height: 34px;
-  background: rgba(0,4,50,0.95); border-top: 1px solid rgba(255,255,255,0.2);
+  background: #000432; border-top: 1px solid #ffffff;
   z-index: 102; display: flex; align-items: center; justify-content: center;
   padding: 0 8px; gap: 5px; overflow-x: auto; overflow-y: hidden;
-  scrollbar-width: none; backdrop-filter: blur(14px);
+  scrollbar-width: none;
 }
 #shortcutBar::-webkit-scrollbar { display: none; }
 #shortcutBar .sc-btn {
-  background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.3);
+  background: #000432; border: 1px solid #ffffff;
   color: #ffffff; padding: 4px 10px; border-radius: 6px;
   font: 700 10px/1 'JetBrains Mono', monospace;
   cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: all 0.15s; outline: none;
 }
-#shortcutBar .sc-btn:hover { background: rgba(255,255,255,0.15); border-color: #ffffff; }
-#shortcutBar .sc-btn.active { background: rgba(255,255,255,0.2); border-color: #ffffff; box-shadow: 0 0 8px rgba(255,255,255,0.25); }
+#shortcutBar .sc-btn:hover { background: #ffffff; color: #000432; border-color: #ffffff; }
+#shortcutBar .sc-btn.active { background: #ffffff; color: #000432; border-color: #ffffff; box-shadow: 0 0 8px #ffffff; }
 #shortcutBar .sc-add-btn {
-  background: transparent; border: 1px dashed rgba(255,255,255,0.3);
+  background: #000432; border: 1px dashed #ffffff;
   color: #ffffff; padding: 4px 8px; border-radius: 6px;
   font: 700 11px/1 'JetBrains Mono', monospace;
   cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: all 0.15s;
 }
-#shortcutBar .sc-add-btn:hover { border-color: #ffffff; color: #ffffff; background: rgba(255,255,255,0.08); }
-#shortcutBar .sc-label { color: #ffffff; font: 12px 'JetBrains Mono', monospace; padding: 0 4px; flex-shrink: 0; }
+#shortcutBar .sc-add-btn:hover { border-color: #ffffff; color: #000432; background: #ffffff; }
+#shortcutBar .sc-label { color: #ffffff; font: 700 11px/1 'JetBrains Mono', monospace; padding: 0 4px; flex-shrink: 0; }
 #shortcutBar .sc-lock-btn {
-  background: transparent; border: 1px solid rgba(255,255,255,0.25);
+  background: #000432; border: 1px solid #ffffff;
   color: #ffffff; padding: 3px 7px; border-radius: 6px;
   font: 700 11px/1 'JetBrains Mono', monospace;
   cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: all 0.15s;
 }
-#shortcutBar .sc-lock-btn:hover { border-color: #ffffff; color: #ffffff; background: rgba(255,255,255,0.08); }
-#shortcutBar .sc-lock-btn.locked { border-color: rgba(255,255,255,0.5); color: #ffffff; background: rgba(255,255,255,0.1); }
+#shortcutBar .sc-lock-btn:hover { border-color: #ffffff; color: #000432; background: #ffffff; }
+#shortcutBar .sc-lock-btn.locked { border-color: #ffffff; color: #000432; background: #ffffff; }
 #shortcutBar .sc-collapse-btn {
-  background: transparent; border: 1px solid rgba(255,255,255,0.25);
+  background: #000432; border: 1px solid #ffffff;
   color: #ffffff; padding: 3px 7px; border-radius: 6px;
   font: 700 11px/1 'JetBrains Mono', monospace;
   cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: all 0.15s;
 }
-#shortcutBar .sc-collapse-btn:hover { border-color: #ffffff; color: #ffffff; background: rgba(255,255,255,0.08); }
-#shortcutBar .sc-collapse-btn.collapsed { border-color: rgba(255,255,255,0.5); color: #ffffff; background: rgba(255,255,255,0.1); }
+#shortcutBar .sc-collapse-btn:hover { border-color: #ffffff; color: #000432; background: #ffffff; }
+#shortcutBar .sc-collapse-btn.collapsed { border-color: #ffffff; color: #000432; background: #ffffff; }
 
 /* ── UI Collapsed State ── */
 body.ui-collapsed #repoBar,
@@ -157,14 +157,14 @@ body.compact-layout #repoBar {
   flex-wrap: nowrap; overflow: hidden;
   padding: 0 8px 0 0; margin-right: 4px; gap: 3px;
   background: transparent; border-top: none; backdrop-filter: none;
-  border-right: 1px solid rgba(255,255,255,0.15);
+  border-right: 1px solid #ffffff;
 }
 body.compact-layout #repoBar .repo-bar-empty { font-size: 8px; padding: 0 4px; white-space: nowrap; }
 /* Single bottom bar: repos | input | toggles | undo/redo/push, full width */
 body.compact-layout #controlBar {
-  position: fixed; bottom: 0; left: 0; width: 100%; height: 30px;
+  position: fixed; bottom: 0; left: 0; width: 100%; height: 34px;
   z-index: 100; display: flex; align-items: center; flex-wrap: nowrap;
-  border-top: 1px solid rgba(255,255,255,0.25); border-bottom: none;
+  border-top: 1px solid #ffffff; border-bottom: none;
   padding: 0 6px; gap: 4px;
 }
 /* Remaining 60% (after the repo bar's firm, protected 40%) lives entirely
@@ -201,28 +201,26 @@ body.compact-layout #git-controls {
   flex: 0 1 auto; min-width: 0; justify-content: center;
 }
 
-/* Enlarge button/select chrome (everything except the input, which keeps
-   its own sizing above) now that the "other items" zone has more room.
-   All icon buttons share one fixed square size so nothing looks mismatched. */
+/* All buttons/selects in the bar share one height for perfect alignment */
 body.compact-layout button.btn,
 body.compact-layout select.btn,
 body.compact-layout #ghSettingsBtn,
 body.compact-layout #pushBtn,
 body.compact-layout #ghNewRepoBtn {
-  width: 34px; height: 34px; padding: 0; font-size: 14px;
-  border-radius: 6px; display: inline-flex; align-items: center;
+  height: 22px; width: auto; min-width: 22px; padding: 0 7px; font-size: 13px;
+  border-radius: 5px; display: inline-flex; align-items: center;
   justify-content: center; line-height: 1; flex: 0 0 auto;
 }
-body.compact-layout select.btn { width: auto; min-width: 34px; padding: 0 8px; font-size: 11px; }
+body.compact-layout select.btn { width: auto; min-width: 22px; padding: 0 7px; font-size: 11px; }
 body.compact-layout input.btn {
-  height: 34px; padding: 0 10px; font-size: 11px; border-radius: 6px; box-sizing: border-box;
+  height: 22px; padding: 0 8px; font-size: 11px; border-radius: 5px; box-sizing: border-box;
 }
 body.compact-layout #payloadToggles {
-  height: 34px; padding: 0 10px; gap: 6px; border-radius: 6px;
+  height: 22px; padding: 0 8px; gap: 5px; border-radius: 5px;
   box-sizing: border-box; display: inline-flex; align-items: center;
 }
-body.compact-layout #payloadToggles label { font-size: 10px; gap: 4px; }
-body.compact-layout #payloadToggles input[type="checkbox"] { width: 16px; height: 16px; }
+body.compact-layout #payloadToggles label { font-size: 10px; gap: 3px; }
+body.compact-layout #payloadToggles input[type="checkbox"] { width: 13px; height: 13px; }
 /* Repo tabs: colour-only blocks, no visible label text (full name still
    available via the title= tooltip on hover/long-press). Each tab grows
    to fill the available 40% space evenly and shrinks automatically as
@@ -239,45 +237,63 @@ body.compact-layout #repoBar .repo-btn::after {
 }
 body.compact-layout #repoBar .repo-btn.active::after { opacity: 1; }
 
-/* Cycling colour palette applied automatically by tab position, so any
-   number of repos — present or future — each get a distinct colour with
-   no per-repo configuration required. */
-body.compact-layout #repoBar .repo-btn:nth-child(8n+1) { background: rgba(255,255,255,0.30);  border-color: #ffffff; }
-body.compact-layout #repoBar .repo-btn:nth-child(8n+2) { background: rgba(255,255,255,0.30); border-color: #ffffff; }
-body.compact-layout #repoBar .repo-btn:nth-child(8n+3) { background: rgba(255,255,255,0.30); border-color: #ffffff; }
-body.compact-layout #repoBar .repo-btn:nth-child(8n+4) { background: rgba(255,255,255,0.30); border-color: #ffffff; }
-body.compact-layout #repoBar .repo-btn:nth-child(8n+5) { background: rgba(255,255,255,0.30); border-color: #ffffff; }
-body.compact-layout #repoBar .repo-btn:nth-child(8n+6) { background: rgba(255,255,255,0.30); border-color: #ffffff; }
-body.compact-layout #repoBar .repo-btn:nth-child(8n+7) { background: rgba(255,255,255,0.30);   border-color: #ffffff; }
-body.compact-layout #repoBar .repo-btn:nth-child(8n+0) { background: rgba(255,255,255,0.30);  border-color: #ffffff; }
-body.compact-layout #repoBar .repo-btn.active { box-shadow: 0 0 6px currentColor; }
+/* ── 8-colour cycling palette for compact pill tabs ── */
+body.compact-layout #repoBar .repo-btn:nth-child(8n+1) { background: #7eb8f7; border-color: #7eb8f7; }
+body.compact-layout #repoBar .repo-btn:nth-child(8n+2) { background: #7df5c0; border-color: #7df5c0; }
+body.compact-layout #repoBar .repo-btn:nth-child(8n+3) { background: #f9a875; border-color: #f9a875; }
+body.compact-layout #repoBar .repo-btn:nth-child(8n+4) { background: #d47bff; border-color: #d47bff; }
+body.compact-layout #repoBar .repo-btn:nth-child(8n+5) { background: #ff7b9c; border-color: #ff7b9c; }
+body.compact-layout #repoBar .repo-btn:nth-child(8n+6) { background: #ffe066; border-color: #ffe066; }
+body.compact-layout #repoBar .repo-btn:nth-child(8n+7) { background: #6ef0f0; border-color: #6ef0f0; }
+body.compact-layout #repoBar .repo-btn:nth-child(8n+0) { background: #b5e88a; border-color: #b5e88a; }
+body.compact-layout #repoBar .repo-btn.active { opacity: 1; box-shadow: 0 0 8px currentColor; filter: brightness(1.2); }
 
-/* Re-flow the viewer to sit above the single merged bar (30px, was 41px with two rows) */
+/* Re-flow the viewer to sit above the single merged bar */
 body.compact-layout #preview,
-body.compact-layout #codeView { bottom: 30px; height: calc(100% - 30px); }
-body.compact-layout #fring { bottom: 30px; }
-body.compact-layout #ghConfigPanel { bottom: 36px; }
-body.compact-layout #toast { bottom: 38px; }
+body.compact-layout #codeView { bottom: 34px; height: calc(100% - 34px); }
+body.compact-layout #fring { bottom: 34px; }
+body.compact-layout #ghConfigPanel { bottom: 40px; }
+body.compact-layout #toast { bottom: 42px; }
 
 
 /* ── Repo Bar ── */
 #repoBar {
   position: fixed; bottom: 66px; left: 0; width: 100%; height: 34px;
-  background: #000432; border-top: 1px solid rgba(255,255,255,0.15);
+  background: #000432; border-top: 1px solid #ffffff;
   z-index: 101; display: flex; align-items: center;
   padding: 0 8px; gap: 5px; overflow-x: auto; overflow-y: hidden;
   scrollbar-width: none;
 }
 #repoBar::-webkit-scrollbar { display: none; }
 #repoBar .repo-btn {
-  background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.25);
+  background: #000432; border: 1px solid #ffffff;
   color: #ffffff; padding: 4px 10px; border-radius: 6px;
   font: 700 10px/1 'JetBrains Mono', monospace;
   cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: all 0.15s; outline: none;
 }
-#repoBar .repo-btn:hover { background: rgba(255,255,255,0.12); border-color: #ffffff; }
-#repoBar .repo-btn.active { background: rgba(255,255,255,0.15); border-color: #ffffff; color: #ffffff; box-shadow: 0 0 8px rgba(255,255,255,0.2); }
-#repoBar .repo-bar-empty { color: rgba(255,255,255,0.35); font: 10px 'JetBrains Mono', monospace; padding: 0 8px; }
+
+/* ── 8-colour cycling palette for normal (text) repo tabs ── */
+#repoBar .repo-btn:nth-child(8n+1) { border-color: #7eb8f7; color: #7eb8f7; }
+#repoBar .repo-btn:nth-child(8n+2) { border-color: #7df5c0; color: #7df5c0; }
+#repoBar .repo-btn:nth-child(8n+3) { border-color: #f9a875; color: #f9a875; }
+#repoBar .repo-btn:nth-child(8n+4) { border-color: #d47bff; color: #d47bff; }
+#repoBar .repo-btn:nth-child(8n+5) { border-color: #ff7b9c; color: #ff7b9c; }
+#repoBar .repo-btn:nth-child(8n+6) { border-color: #ffe066; color: #ffe066; }
+#repoBar .repo-btn:nth-child(8n+7) { border-color: #6ef0f0; color: #6ef0f0; }
+#repoBar .repo-btn:nth-child(8n+0) { border-color: #b5e88a; color: #b5e88a; }
+
+#repoBar .repo-btn:hover        { background: #ffffff; color: #000432; border-color: #ffffff; }
+#repoBar .repo-btn.active       { background: currentColor; color: #000432; border-color: currentColor; box-shadow: 0 0 10px currentColor; filter: brightness(1.15); }
+#repoBar .repo-btn.active:nth-child(8n+1) { background: #7eb8f7; color: #000432; }
+#repoBar .repo-btn.active:nth-child(8n+2) { background: #7df5c0; color: #000432; }
+#repoBar .repo-btn.active:nth-child(8n+3) { background: #f9a875; color: #000432; }
+#repoBar .repo-btn.active:nth-child(8n+4) { background: #d47bff; color: #000432; }
+#repoBar .repo-btn.active:nth-child(8n+5) { background: #ff7b9c; color: #000432; }
+#repoBar .repo-btn.active:nth-child(8n+6) { background: #ffe066; color: #000432; }
+#repoBar .repo-btn.active:nth-child(8n+7) { background: #6ef0f0; color: #000432; }
+#repoBar .repo-btn.active:nth-child(8n+0) { background: #b5e88a; color: #000432; }
+
+#repoBar .repo-bar-empty { color: #ffffff; font: 700 10px/1 'JetBrains Mono', monospace; padding: 0 8px; }
 
 /* ── Status Bar ── */
 #statusBar {
@@ -294,19 +310,19 @@ body.compact-layout #toast { bottom: 38px; }
 #git-controls { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
 #controlBar {
   position: fixed; bottom: 22px; left: 0; width: 100%; height: 44px;
-  background: #000432; border-top: 1px solid rgba(255,255,255,0.25);
+  background: #000432; border-top: 1px solid #ffffff;
   z-index: 100; display: flex; align-items: center;
   padding: 0 10px; gap: 6px; overflow-x: auto; overflow-y: hidden;
   scrollbar-width: none;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: none;
 }
 #controlBar::-webkit-scrollbar { display: none; }
-#controlBar .ctrl-sep { width: 1px; height: 22px; background: rgba(255,255,255,0.12); flex-shrink: 0; margin: 0 4px; }
+#controlBar .ctrl-sep { width: 1px; height: 22px; background: #ffffff; flex-shrink: 0; margin: 0 4px; opacity: 0.3; }
 
 /* ── Payload Include Toggles ── */
 #payloadToggles {
   display: flex; gap: 8px; align-items: center; flex-shrink: 0;
-  background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.2);
+  background: #000432; border: 1px solid #ffffff;
   border-radius: 8px; padding: 6px 10px;
 }
 #payloadToggles label {
@@ -318,42 +334,50 @@ body.compact-layout #toast { bottom: 38px; }
   -webkit-appearance: none; appearance: none;
   width: 16px; height: 16px; cursor: pointer; margin: 0;
   border: 1.5px solid #ffffff; border-radius: 4px;
-  background: rgba(0,0,0,0.6); position: relative; flex-shrink: 0;
+  background: #000432; position: relative; flex-shrink: 0;
   transition: all 0.15s;
 }
 #payloadToggles input[type="checkbox"]:checked {
-  background: rgba(255,255,255,0.18);
+  background: #ffffff;
 }
 #payloadToggles input[type="checkbox"]:checked::after {
   content: ''; position: absolute; left: 4px; top: 0px;
   width: 5px; height: 9px;
-  border: solid #ffffff; border-width: 0 2px 2px 0;
+  border: solid #000432; border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
-#payloadToggles label:has(input:not(:checked)) { color: rgba(255,255,255,0.4); opacity: 0.6; }
+#payloadToggles label:has(input:not(:checked)) { color: #ffffff; opacity: 1; }
 
-button.btn, select.btn, input.btn {
-  background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.5);
-  color: #ffffff; padding: 10px 16px; border-radius: 8px;
-  font: 700 11px/1 'JetBrains Mono', monospace;
-  cursor: pointer; backdrop-filter: blur(12px); outline: none;
-  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37); transition: all 0.2s ease;
-  white-space: nowrap; flex-shrink: 0;
+/* ── Uniform icon size across all bar buttons ── */
+button.btn, #pushBtn, #ghSettingsBtn, #ghNewRepoBtn {
+  font-size: 14px;
 }
-input.btn { cursor: text; color: #ffffff; width: 220px; }
-input.btn::placeholder { color: rgba(255,255,255,0.5); }
-select.btn { padding: 9px 12px; }
-button.btn:hover, select.btn:hover, input.btn:focus { background: rgba(255,255,255,0.15); border-color: #ffffff; transform: translateY(-2px); }
+button.btn, select.btn, input.btn {
+  background: #000432; border: 1px solid #ffffff;
+  color: #ffffff; padding: 0; height: 26px; border-radius: 6px;
+  font: 700 11px/1 'JetBrains Mono', monospace;
+  cursor: pointer; outline: none;
+  transition: all 0.15s ease;
+  white-space: nowrap; flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+button.btn { min-width: 26px; padding: 0 8px; }
+input.btn { cursor: text; width: 220px; padding: 0 10px; font-size: 11px; background: #000432; }
+input.btn::placeholder { color: #ffffff; opacity: 0.55; }
+select.btn { padding: 0 8px; }
+button.btn:hover, select.btn:hover { background: #ffffff; color: #000432; border-color: #ffffff; }
+input.btn:focus { background: #000432; color: #ffffff; border-color: #ffffff; outline: none; }
+input.btn:focus::placeholder { opacity: 0.35; }
 button.btn:active { transform: scale(0.96); }
-button.btn:disabled { opacity: 0.65; cursor: not-allowed; border-color: rgba(255,255,255,0.4); color: rgba(255,255,255,0.75); transform: none !important; }
+button.btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
 
 /* ── Toast ── */
 #toast {
   position: fixed; bottom: 84px; left: 50%; transform: translateX(-50%);
   padding: 8px 20px; border-radius: 20px; font: 700 11px/1 'JetBrains Mono', monospace;
-  letter-spacing: .5px; background: rgba(0,0,0,.85);
-  border: 1px solid rgba(255,255,255,.4); color: #ffffff;
-  backdrop-filter: blur(8px); z-index: 100; pointer-events: none;
+  letter-spacing: .5px; background: #000432;
+  border: 1px solid #ffffff; color: #ffffff;
+  z-index: 100; pointer-events: none;
   opacity: 0; transition: opacity .25s, transform .25s;
 }
 #toast.show { opacity: 1; transform: translate(-50%, -5px); }
@@ -426,33 +450,36 @@ button.btn:disabled { opacity: 0.65; cursor: not-allowed; border-color: rgba(255
 
 /* ── Push Button ── */
 #pushBtn {
-  background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.5);
-  color: #ffffff; padding: 10px 14px; border-radius: 8px;
-  font: 700 11px/1 'JetBrains Mono', monospace;
-  cursor: pointer; flex-shrink: 0; transition: all 0.2s;
+  background: #000432; border: 1px solid #ffffff;
+  color: #ffffff; height: 26px; min-width: 26px; padding: 0 8px; border-radius: 6px;
+  font: 700 13px/1 'JetBrains Mono', monospace;
+  cursor: pointer; flex-shrink: 0; transition: all 0.15s;
+  display: inline-flex; align-items: center; justify-content: center;
 }
-#pushBtn:hover:not(:disabled) { background: rgba(255,255,255,0.15); border-color: #ffffff; transform: translateY(-2px); }
-#pushBtn:disabled { opacity: 0.65; cursor: not-allowed; border-color: rgba(255,255,255,0.4); color: rgba(255,255,255,0.75); transform: none; }
+#pushBtn:hover:not(:disabled) { background: #ffffff; color: #000432; border-color: #ffffff; }
+#pushBtn:disabled { opacity: 0.4; cursor: not-allowed; }
 #pushBtn.pushing { border-color: #ffffff; color: #ffffff; animation: pushpulse 0.7s infinite alternate; }
-@keyframes pushpulse { from { opacity: 0.6; } to { opacity: 1; } }
+@keyframes pushpulse { from { opacity: 0.5; } to { opacity: 1; } }
 
 #ghSettingsBtn {
-  background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.45);
-  color: #ffffff; padding: 10px 10px; border-radius: 8px;
-  font: 700 12px/1 'JetBrains Mono', monospace;
-  cursor: pointer; flex-shrink: 0; transition: all 0.2s;
+  background: #000432; border: 1px solid #ffffff;
+  color: #ffffff; height: 26px; min-width: 26px; padding: 0 8px; border-radius: 6px;
+  font: 700 13px/1 'JetBrains Mono', monospace;
+  cursor: pointer; flex-shrink: 0; transition: all 0.15s;
+  display: inline-flex; align-items: center; justify-content: center;
 }
-#ghSettingsBtn:hover { background: rgba(255,255,255,0.1); border-color: #ffffff; transform: translateY(-2px); }
-#ghSettingsBtn.active { border-color: #ffffff; color: #ffffff; }
+#ghSettingsBtn:hover { background: #ffffff; color: #000432; border-color: #ffffff; }
+#ghSettingsBtn.active { background: #ffffff; color: #000432; border-color: #ffffff; }
 
 #ghNewRepoBtn {
-  background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.5);
-  color: #ffffff; padding: 10px 10px; border-radius: 8px;
-  font: 700 12px/1 'JetBrains Mono', monospace;
-  cursor: pointer; flex-shrink: 0; transition: all 0.2s;
+  background: #000432; border: 1px solid #ffffff;
+  color: #ffffff; height: 26px; min-width: 26px; padding: 0 8px; border-radius: 6px;
+  font: 700 13px/1 'JetBrains Mono', monospace;
+  cursor: pointer; flex-shrink: 0; transition: all 0.15s;
+  display: inline-flex; align-items: center; justify-content: center;
 }
-#ghNewRepoBtn:hover { background: rgba(255,255,255,0.12); border-color: #ffffff; transform: translateY(-2px); }
-#ghNewRepoBtn:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+#ghNewRepoBtn:hover { background: #ffffff; color: #000432; border-color: #ffffff; }
+#ghNewRepoBtn:disabled { opacity: 0.4; cursor: not-allowed; }
 
 /* ── New Repo Modal ── */
 #newRepoModal {
@@ -533,14 +560,13 @@ button.btn:disabled { opacity: 0.65; cursor: not-allowed; border-color: rgba(255
 /* ── Patch Status Indicator ── */
 #bridgeIndicator {
   position: fixed; top: 8px; right: 12px; z-index: 9998;
-  background: rgba(0,0,0,0.85); border: 1px solid rgba(255,255,255,0.3);
-  color: rgba(255,255,255,0.6); padding: 4px 10px; border-radius: 12px;
+  background: #000432; border: 1px solid #ffffff;
+  color: #ffffff; padding: 4px 10px; border-radius: 12px;
   font: 700 9px/1 'JetBrains Mono', monospace; letter-spacing: 0.5px;
-  /* Made clickable so you can cancel a 2-step patch */
   cursor: default; transition: all 0.3s;
 }
-#bridgeIndicator.active { border-color: #ffffff; color: #ffffff; box-shadow: 0 0 8px rgba(255,255,255,0.2); }
-#bridgeIndicator.receiving { border-color: #ffffff; color: #ffffff; box-shadow: 0 0 8px rgba(255,255,255,0.3); }
+#bridgeIndicator.active { border-color: #ffffff; color: #ffffff; box-shadow: 0 0 8px #ffffff; }
+#bridgeIndicator.receiving { border-color: #ffffff; color: #ffffff; box-shadow: 0 0 8px #ffffff; }
 #bridgeIndicator.error { border-color: #ffffff; color: #ffffff; }
 </style>
 </head>
@@ -560,7 +586,7 @@ button.btn:disabled { opacity: 0.65; cursor: not-allowed; border-color: rgba(255
 
 <div id="controlBar">
   <div id="repoBar">
-    <span class="repo-bar-empty">⏳ Loading repos…</span>
+    <span class="repo-bar-empty">... Loading repos</span>
   </div>
   <div id="bottom-controls">
     <input type="text" id="aiInstruction" class="btn" style="border-color:#ffffff;color:#ffffff;" placeholder="Instructions for AI...">
@@ -569,13 +595,12 @@ button.btn:disabled { opacity: 0.65; cursor: not-allowed; border-color: rgba(255
       <label title="Include your typed instructions"><input type="checkbox" id="incInstructions" checked></label>
       <label title="Include the current source code"><input type="checkbox" id="incSource" checked></label>
     </div>
-    <button id="payloadBtn" class="btn" style="border-color:#ffffff;color:#ffffff;">▲</button>
-    <button id="oldPatchBtn" class="btn" style="border-color:#ffffff;color:#ffffff;" title="Read clipboard now, lock it as the OLD code to match">◐</button>
-    <button id="newPatchBtn" class="btn" style="border-color:#ffffff;color:#ffffff;" title="Read clipboard now, apply it as the NEW code replacing the locked OLD code" disabled>●</button>
-    <button id="promptBtn" class="btn" style="display:none;border-color:#ffffff;color:#ffffff;">🤖</button>
-    <button id="astBtn" class="btn" style="display:none;border-color:#ffffff;color:#ffffff;">🧠</button>
+    <button id="payloadBtn" class="btn" style="border-color:#ffffff;color:#ffffff;" title="Build &amp; copy payload">&#x25B2;</button>
+    <button id="pasteAndProcessBtn" class="btn" style="border-color:#ffffff;color:#ffffff;" title="Read clipboard now and apply the patch (supports OLD===SPLIT===NEW and ===BLOCK=== formats)">&#x2318;</button>
+    <button id="promptBtn" class="btn" style="display:none;border-color:#ffffff;color:#ffffff;" title="Copy super-prompt">&#x2605;</button>
+    <button id="astBtn" class="btn" style="display:none;border-color:#ffffff;color:#ffffff;" title="AST Health Check">&#x25C6;</button>
     <select id="aiSelector" class="btn" style="border-color:#ffffff;color:#ffffff;margin-left:8px;">
-      <option value="">🚀 Launch AI...</option>
+      <option value="">&#x25B8; Launch AI</option>
       <option value="https://gemini.google.com/app">Gemini</option>
       <option value="https://chatgpt.com/">ChatGPT</option>
       <option value="https://claude.ai/new">Claude</option>
@@ -585,19 +610,19 @@ button.btn:disabled { opacity: 0.65; cursor: not-allowed; border-color: rgba(255
   <div class="ctrl-sep"></div>
   <div id="controls">
     <select id="clipHistory" class="btn" style="display:none;border-color:#ffffff;color:#ffffff;max-width:130px;">
-      <option value="">📋 History</option>
+      <option value="">&#x29C9; History</option>
     </select>
-    <button id="undoBtn" class="btn" style="border-color:#ffffff;color:#ffffff;" disabled title="Undo (Ctrl+Z)">↩</button>
-    <button id="redoBtn" class="btn" style="border-color:#ffffff;color:#ffffff;" disabled title="Redo (Ctrl+Y)">↪</button>
-    <button id="revertBtn" class="btn" style="display:none!important;border-color:#ffffff;color:#ffffff;" title="Reload from disk">🔄</button>
-    <button id="fileBtn" class="btn">⛓</button>
-    <button id="viewModeBtn" class="btn" style="border-color:#ffffff;color:#ffffff;" title="Toggle Web Preview / Raw Code">🌐</button>
+    <button id="undoBtn" class="btn" style="border-color:#ffffff;color:#ffffff;" disabled title="Undo (Ctrl+Z)">&#x21B6;</button>
+    <button id="redoBtn" class="btn" style="border-color:#ffffff;color:#ffffff;" disabled title="Redo (Ctrl+Y)">&#x21B7;</button>
+    <button id="revertBtn" class="btn" style="display:none!important;border-color:#ffffff;color:#ffffff;" title="Reload from disk">&#x21BA;</button>
+    <button id="fileBtn" class="btn" title="Open / Link file">&#x2317;</button>
+    <button id="viewModeBtn" class="btn" style="border-color:#ffffff;color:#ffffff;" title="Toggle Web Preview / Raw Code">&#x25A1;</button>
   </div>
   <div class="ctrl-sep"></div>
   <div id="git-controls">
-    <button id="ghSettingsBtn" title="GitHub Settings">⚙</button>
-    <button id="pushBtn" disabled title="Commit & Push to GitHub">⬆</button>
-    <button id="ghNewRepoBtn" title="Create a new GitHub repo + Pages site">➕</button>
+    <button id="ghSettingsBtn" title="GitHub Settings">&#x2699;</button>
+    <button id="pushBtn" disabled title="Commit &amp; Push to GitHub">&#x2191;</button>
+    <button id="ghNewRepoBtn" title="Create a new GitHub repo + Pages site">&#x229E;</button>
   </div>
 </div>
 
@@ -1173,7 +1198,26 @@ button.btn:disabled { opacity: 0.65; cursor: not-allowed; border-color: rgba(255
   });
 
   // ── Super Prompt ──────────────────────────────────────────────────────
-  const SUPER_PROMPT = `Please give me the Old code block and the New code block separately so I can easily find and replace them.`;
+  const SUPER_PROMPT = `[Give me the results as Combined Find-and-Replace blocks. Put the old code and the new code inside a single code block separated by exactly ===SPLIT=== on its own line so I only have to click 'copy' once. 
+(Note: This works for ANY language. Ignore JS-specific scope rules if not applicable.)
+The 11 Surgery Scenarios You Must Handle:
+Scenario 1 (The Swap): Just changing one value or line for another.
+Scenario 2 (The Excision): Deleting code while keeping the rest of the file clean.
+Scenario 3 (The Injection): "Bolting on" brand new features to existing code.
+Scenario 4 (The Interceptor): Adding a safety check or a rule inside an existing process.
+Scenario 5 (The Migration): Moving a button or a piece of logic from one place to another.
+Scenario 6 (The Refactor): Rewriting a complex math formula or a loop to make it faster.
+Scenario 7 (The Sweep): Renaming a specific word/variable everywhere it appears.
+Scenario 8 (The Database Bump): Updating saved data settings so the app doesn't crash on old info.
+Scenario 9 (The Link Shift): Changing where the app connects to (APIs, URLs, or Tokens).
+Scenario 10 (The Sync): If you change the "Brain" (Web Worker), you must also fix the "Body" (Main Script).
+Scenario 11 (The Layer Fix): Fixing UI issues where things are hidden or unclickable.
+If any variable is declared with const or let inside a function or block that gets re-executed, move the declaration outside to the top of the script or convert it to var. Never declare the same identifier twice in the same scope.
+response must contain ONLY the code blocks. No warnings, no error messages, no annotations.
+If you have a concern about the existing code, state it in plain text BEFORE the code block — never inside it.
+Before you give me the solution, double-check that you haven't left any brackets } or parentheses ) unclosed.
+For multiple independent fixes, separate each OLD===SPLIT===NEW pair with ===BLOCK=== so I can batch-apply all at once with one copy.]
+`;
 
   // ── App Init ──────────────────────────────────────────────────────────
   window.addEventListener('load', async () => {
@@ -1215,17 +1259,13 @@ button.btn:disabled { opacity: 0.65; cursor: not-allowed; border-color: rgba(255
   // ── Patch Status Indicator ──────────────────────────────────────────────
   const indicator = document.getElementById('bridgeIndicator');
 
-  // Let the user cancel a two-step patch by clicking the indicator
+  // Clicking the indicator resets any stale state
   indicator.addEventListener('click', () => {
-    if (pendingOldCode) {
-      pendingOldCode = null;
-      indicator.textContent = '📋 Patch: Ready';
-      indicator.className = '';
-      indicator.style.cursor = 'default';
-      indicator.title = '';
-      document.getElementById('newPatchBtn').disabled = true;
-      toast("🚫 Two-step patch cancelled.", 3000);
-    }
+    pendingOldCode = null;
+    indicator.textContent = '📋 Patch: Ready';
+    indicator.className = '';
+    indicator.style.cursor = 'default';
+    indicator.title = '';
   });
 
   // ── Code / Web View Toggle ────────────────────────────────────────────
@@ -1239,14 +1279,14 @@ button.btn:disabled { opacity: 0.65; cursor: not-allowed; border-color: rgba(255
   document.getElementById('viewModeBtn').addEventListener('click', (e) => {
     isCodeMode = !isCodeMode;
     if (isCodeMode) {
-      e.target.textContent = '🐍'; e.target.style.borderColor = '#ffffff'; e.target.style.color = '#ffffff';
+      e.target.innerHTML = '&#x2261;'; e.target.style.borderColor = '#ffffff'; e.target.style.color = '#ffffff';
       $pv.style.display = 'none'; $codeView.style.display = 'block';
     } else {
-      e.target.textContent = '🌐'; e.target.style.borderColor = '#ffffff'; e.target.style.color = '#ffffff';
+      e.target.innerHTML = '&#x25A1;'; e.target.style.borderColor = '#ffffff'; e.target.style.color = '#ffffff';
       $pv.style.display = 'block'; $codeView.style.display = 'none';
     }
     render(sourceContent);
-    toast(isCodeMode ? "🐍 Code Mode Active" : "🌐 Web Mode Active");
+    toast(isCodeMode ? "Code Mode Active" : "Web Mode Active");
   });
 
   // ── Error Overlay ─────────────────────────────────────────────────────
@@ -1327,73 +1367,44 @@ button.btn:disabled { opacity: 0.65; cursor: not-allowed; border-color: rgba(255
     } catch (err) { toast("❌ Failed to copy payload"); }
   });
 
-  // ── Old Patch button — manually reads clipboard NOW and locks it as the OLD code ──
-  // Reuses the exact same Step-1 matching logic used to find and lock the target chunk.
-  document.getElementById('oldPatchBtn').addEventListener('click', async () => {
+  // ── Paste & Process button — reads clipboard and applies the patch immediately ──
+  // Supports combined OLD===SPLIT===NEW blocks (single or ===BLOCK=== batches).
+  document.getElementById('pasteAndProcessBtn').addEventListener('click', async () => {
     if (!sourceContent) { toast("❌ No source loaded — link a file first"); return; }
     let text;
     try { text = await navigator.clipboard.readText(); }
-    catch (err) { toast("❌ Couldn't read clipboard — copy the OLD code from Claude's reply first"); return; }
+    catch (err) { toast("❌ Couldn't read clipboard — copy the patch from Claude first"); return; }
 
-    if (!text) { toast("⚠️ Clipboard is empty"); return; }
+    if (!text || !text.trim()) { toast("⚠️ Clipboard is empty"); return; }
 
-    let cleanText = text.replace(/^```[\w]*\n?/gm, '').replace(/\n?```$/gm, '').trim();
-    if (cleanText.length < 5) { toast("⚠️ Clipboard text too short"); return; }
-
-    const loc = findFingerprintedChunk(sourceContent, cleanText);
-    if (!loc) {
-      showErr(`❌ Target block not found in source.\n\nThe "Old Code" you copied didn't match anything in the current file:\n\n"${cleanText.slice(0, 150).trim()}${cleanText.length > 150 ? '…' : ''}"\n\nEnsure you copy the exact OLD code first.`);
-      return;
-    }
-    if (loc.ambiguous) {
-      showErr(`Ambiguous match — target not locked.\n\nThe "Old Code" you copied appears more than once in the file.\nPlease copy a larger, more unique chunk.`);
-      return;
-    }
-    if (loc.isFuzzy && loc.confidence < 70) {
-      showErr(`Low confidence match (${loc.confidence}%) — target not locked.\n\nThe "Old Code" matched fuzzily but not reliably enough.\nPlease try copying a larger context window.`);
-      return;
-    }
-
-    pendingOldCode = cleanText;
     lastClip = text;
     addToHistory(text);
-    const ind = document.getElementById('bridgeIndicator');
-    ind.textContent = '🟡 Old Patch locked — copy New Code';
-    ind.className = 'receiving';
-    document.getElementById('newPatchBtn').disabled = false;
-    document.getElementById('statusLeft').textContent = '🟡 Old Patch locked — now copy the NEW code from Claude, then click ⚡ New Patch';
-    toast("📌 Old Patch locked. Now copy the NEW code block, then click ⚡ New Patch.", 5000);
-  });
-
-  // ── New Patch button — manually reads clipboard NOW and applies it against the locked Old Patch ──
-  // Reuses the exact same Step-2 apply logic (autoLockAndApply) used for matching and patching.
-  document.getElementById('newPatchBtn').addEventListener('click', async () => {
-    if (!pendingOldCode) { toast("⚠️ Click 📌 Old Patch first to lock a target"); return; }
-    let text;
-    try { text = await navigator.clipboard.readText(); }
-    catch (err) { toast("❌ Couldn't read clipboard — copy the NEW code from Claude's reply first"); return; }
-
-    if (!text) { toast("⚠️ Clipboard is empty"); return; }
-
-    let cleanText = text.replace(/^```[\w]*\n?/gm, '').replace(/\n?```$/gm, '').trim();
-    if (cleanText.length < 1) { toast("⚠️ Clipboard text too short"); return; }
 
     const ind = document.getElementById('bridgeIndicator');
     ind.textContent = '📋 Patching…';
     ind.className = 'receiving';
-    lastClip = text;
-    addToHistory(text);
 
-    const applied = await autoLockAndApply({ oldCode: pendingOldCode, newCode: cleanText });
-    pendingOldCode = null;
-    document.getElementById('newPatchBtn').disabled = true;
-
-    if (applied) {
-      document.getElementById('statusLeft').textContent = `✨ New Patch applied @ ${new Date().toLocaleTimeString()}`;
-      toast(`⚡ New Patch applied successfully!`);
+    const blocks = parseAllBlocks(text);
+    if (!blocks || blocks.length === 0) {
+      ind.textContent = '📋 Patch: Ready';
+      ind.className = '';
+      showErr(`No valid patch found in clipboard.\n\nExpected format:\n  OLD code\n===SPLIT===\n  NEW code\n\nFor multiple patches separate each pair with ===BLOCK===.`);
+      return;
     }
+
+    let allOk = true;
+    for (const block of blocks) {
+      const ok = await autoLockAndApply(block);
+      if (!ok) { allOk = false; break; }
+    }
+
+    pendingOldCode = null;
     ind.textContent = '📋 Patch: Ready';
-    ind.className = 'active';
+    ind.className = allOk ? 'active' : '';
+    if (allOk) {
+      document.getElementById('statusLeft').textContent = `✨ Patch applied @ ${new Date().toLocaleTimeString()}`;
+      if (blocks.length > 1) toast(`⚡ ${blocks.length} patches applied!`);
+    }
   });
 
   // ── Prompt button ─────────────────────────────────────────────────────
@@ -1773,9 +1784,9 @@ button.btn:disabled { opacity: 0.65; cursor: not-allowed; border-color: rgba(255
       if (!scLocked) {
         const del = document.createElement('button');
         del.textContent = '✕'; del.title = 'Remove ' + sc.label;
-        del.style.cssText = 'background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.3);color:#ffffff;padding:3px 5px;border-radius:5px;font:700 9px/1 "JetBrains Mono",monospace;cursor:pointer;flex-shrink:0;transition:all 0.15s;';
-        del.addEventListener('mouseenter', () => { del.style.background = 'rgba(255,255,255,0.28)'; });
-        del.addEventListener('mouseleave', () => { del.style.background = 'rgba(255,255,255,0.12)'; });
+        del.style.cssText = 'background:#000432;border:1px solid #ffffff;color:#ffffff;padding:3px 5px;border-radius:5px;font:700 9px/1 "JetBrains Mono",monospace;cursor:pointer;flex-shrink:0;transition:all 0.15s;';
+        del.addEventListener('mouseenter', () => { del.style.background = '#ffffff'; del.style.color = '#000432'; });
+        del.addEventListener('mouseleave', () => { del.style.background = '#000432'; del.style.color = '#ffffff'; });
         del.addEventListener('click', () => { scShortcuts.splice(idx,1); scSave(); scRender(); toast('🗑 Removed: ' + sc.label); });
         wrap.appendChild(del);
       }
