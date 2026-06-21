@@ -221,14 +221,18 @@ body.compact-layout #payloadToggles {
 }
 body.compact-layout #payloadToggles label { font-size: 10px; gap: 3px; }
 body.compact-layout #payloadToggles input[type="checkbox"] { width: 13px; height: 13px; }
-/* Repo tabs: colour-only blocks, no visible label text (full name still
-   available via the title= tooltip on hover/long-press). Each tab grows
-   to fill the available 40% space evenly and shrinks automatically as
-   more repos are added — no edits needed when new repos show up. */
+/* Repo tabs: white-bordered name pills (full name available via the title=
+   tooltip on hover/long-press, abbreviated visually via text overflow).
+   Each tab grows to fill the available 40% space evenly and shrinks
+   automatically as more repos are added — no edits needed when new repos
+   show up. */
 body.compact-layout #repoBar .repo-btn {
-  flex: 1 1 0; min-width: 6px; max-width: none; height: 18px;
-  padding: 0; border-radius: 4px; font-size: 0; color: transparent;
-  position: relative; border-width: 1px;
+  flex: 1 1 0; min-width: 0; max-width: none; height: 18px;
+  padding: 0 6px; border-radius: 4px; font-size: 8px; color: #ffffff;
+  background: #000432; border: 1px solid #ffffff;
+  position: relative;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  display: inline-flex; align-items: center; justify-content: center;
 }
 body.compact-layout #repoBar .repo-btn::after {
   content: ''; position: absolute; top: 3px; right: 3px;
@@ -237,16 +241,10 @@ body.compact-layout #repoBar .repo-btn::after {
 }
 body.compact-layout #repoBar .repo-btn.active::after { opacity: 1; }
 
-/* ── 8-colour cycling palette for compact pill tabs ── */
-body.compact-layout #repoBar .repo-btn:nth-child(8n+1) { background: #7eb8f7; border-color: #7eb8f7; }
-body.compact-layout #repoBar .repo-btn:nth-child(8n+2) { background: #7df5c0; border-color: #7df5c0; }
-body.compact-layout #repoBar .repo-btn:nth-child(8n+3) { background: #f9a875; border-color: #f9a875; }
-body.compact-layout #repoBar .repo-btn:nth-child(8n+4) { background: #d47bff; border-color: #d47bff; }
-body.compact-layout #repoBar .repo-btn:nth-child(8n+5) { background: #ff7b9c; border-color: #ff7b9c; }
-body.compact-layout #repoBar .repo-btn:nth-child(8n+6) { background: #ffe066; border-color: #ffe066; }
-body.compact-layout #repoBar .repo-btn:nth-child(8n+7) { background: #6ef0f0; border-color: #6ef0f0; }
-body.compact-layout #repoBar .repo-btn:nth-child(8n+0) { background: #b5e88a; border-color: #b5e88a; }
-body.compact-layout #repoBar .repo-btn.active { opacity: 1; box-shadow: 0 0 8px currentColor; filter: brightness(1.2); }
+body.compact-layout #repoBar .repo-btn.active {
+  background: #ffffff; color: #000432; border-color: #ffffff;
+  opacity: 1; box-shadow: 0 0 8px #ffffff;
+}
 
 /* Re-flow the viewer to sit above the single merged bar */
 body.compact-layout #preview,
@@ -811,7 +809,7 @@ button.btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !import
     ghRepos.forEach(r => {
       const btn = document.createElement('button');
       btn.className = 'repo-btn' + (r.isDefault ? ' active' : '');
-      btn.textContent = (r.isDefault ? '★ ' : '') + r.name.split('/').pop();
+      btn.textContent = r.name.split('/').pop();
       btn.title = r.name + '\n(Drag to shortcut bar to pin)';
       btn.draggable = true;
       btn.addEventListener('dragstart', (e) => { e.dataTransfer.setData('text/plain', r.name); e.dataTransfer.setData('sc-type', 'repo'); btn.style.opacity = '0.5'; });
