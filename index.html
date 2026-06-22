@@ -336,12 +336,12 @@ body.compact-layout #toast { bottom: 42px; }
   transition: all 0.15s;
 }
 #payloadToggles input[type="checkbox"]:checked {
-  background: #000432; border-color: #22c55e;
+  background: #000432; border-color: #ffffff;
 }
 #payloadToggles input[type="checkbox"]:checked::after {
   content: ''; position: absolute; left: 4px; top: 0px;
   width: 5px; height: 9px;
-  border: solid #22c55e; border-width: 0 2px 2px 0;
+  border: solid #ffffff; border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
 #payloadToggles label:has(input:not(:checked)) { color: #ffffff; opacity: 1; }
@@ -593,7 +593,7 @@ button.btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !import
       <label title="Include your typed instructions"><input type="checkbox" id="incInstructions" checked></label>
       <label title="Include the current source code"><input type="checkbox" id="incSource" checked></label>
     </div>
-    <button id="payloadBtn" class="btn" style="border-color:#ffffff;color:#ffffff;" title="Build &amp; copy payload">&#x25B2;</button>
+    <button id="payloadBtn" class="btn" style="border-color:#ffffff;color:#ffffff;" title="Build &amp; copy payload">▲</button>
     <button id="pasteAndProcessBtn" class="btn" style="border-color:#ffffff;color:#ffffff;" title="Read clipboard now and apply the patch (supports OLD===SPLIT===NEW and ===BLOCK=== formats)">&#x2318;</button>
     <button id="promptBtn" class="btn" style="display:none;border-color:#ffffff;color:#ffffff;" title="Copy super-prompt">&#x2605;</button>
     <button id="astBtn" class="btn" style="display:none;border-color:#ffffff;color:#ffffff;" title="AST Health Check">&#x25C6;</button>
@@ -620,7 +620,7 @@ button.btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !import
   <div id="git-controls">
     <button id="ghSettingsBtn" title="GitHub Settings">&#x2699;</button>
     <button id="pushBtn" disabled title="Commit &amp; Push to GitHub">&#x2191;</button>
-    <button id="ghNewRepoBtn" title="Create a new GitHub repo + Pages site">&#x229E;</button>
+    <button id="ghNewRepoBtn" title="Create a new GitHub repo + Pages site">+</button>
   </div>
 </div>
 
