@@ -206,7 +206,8 @@ body.compact-layout button.btn,
 body.compact-layout select.btn,
 body.compact-layout #ghSettingsBtn,
 body.compact-layout #pushBtn,
-body.compact-layout #ghNewRepoBtn {
+body.compact-layout #ghNewRepoBtn,
+body.compact-layout #repoVisBtn {
   height: 22px; width: auto; min-width: 22px; padding: 0 7px; font-size: 13px;
   border-radius: 5px; display: inline-flex; align-items: center;
   justify-content: center; line-height: 1; flex: 0 0 auto;
@@ -479,6 +480,55 @@ button.btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !import
 #ghNewRepoBtn:hover { background: #ffffff; color: #000432; border-color: #ffffff; }
 #ghNewRepoBtn:disabled { opacity: 0.4; cursor: not-allowed; }
 
+/* ── Repo Visibility Toggle Button ── */
+#repoVisBtn {
+  background: #000432; border: 1px solid #ffffff;
+  color: #ffffff; height: 26px; min-width: 26px; padding: 0 8px; border-radius: 6px;
+  font: 700 13px/1 'JetBrains Mono', monospace;
+  cursor: pointer; flex-shrink: 0; transition: all 0.15s;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+#repoVisBtn:hover { background: #ffffff; color: #000432; border-color: #ffffff; }
+#repoVisBtn.active { background: #ffffff; color: #000432; border-color: #ffffff; }
+
+/* ── Repo Visibility Modal ── */
+#repoVisModal {
+  position: fixed; inset: 0; z-index: 550;
+  background: rgba(0,0,0,0.7); display: none;
+  align-items: center; justify-content: center; backdrop-filter: blur(4px);
+}
+#repoVisModal.open { display: flex; }
+#repoVisModalBox {
+  background: rgba(4,8,60,0.98); border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 14px; padding: 24px; width: 380px; max-width: 94vw;
+  max-height: 80vh; overflow-y: auto;
+  font-family: 'JetBrains Mono', monospace; color: #ffffff;
+  box-shadow: 0 8px 60px rgba(0,0,0,0.7);
+}
+#repoVisModalBox h4 { color: #ffffff; margin-bottom: 10px; font-size: 13px; }
+.rv-hint { color: #ffffff; font-size: 9px; line-height: 1.5; margin-bottom: 12px; opacity: 0.8; }
+.rv-list { display: flex; flex-direction: column; gap: 6px; max-height: 280px; overflow-y: auto; }
+.rv-item {
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(0,0,0,0.3); border-radius: 6px; padding: 6px 10px;
+}
+.rv-item label { flex: 1; font-size: 10px; color: #ffffff; cursor: pointer; word-break: break-all; }
+.rv-item input[type="checkbox"] {
+  -webkit-appearance: none; appearance: none;
+  width: 15px; height: 15px; cursor: pointer; margin: 0;
+  border: 1.5px solid #ffffff; border-radius: 4px;
+  background: #000432; position: relative; flex-shrink: 0;
+}
+.rv-item input[type="checkbox"]:checked::after {
+  content: ''; position: absolute; left: 4px; top: -1px;
+  width: 4px; height: 8px;
+  border: solid #ffffff; border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.rv-row { display: flex; gap: 8px; margin-top: 14px; justify-content: flex-end; }
+.rv-btn { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.4); color: #ffffff; padding: 7px 14px; border-radius: 7px; font: 700 10px 'JetBrains Mono', monospace; cursor: pointer; transition: all 0.15s; }
+.rv-btn:hover { background: rgba(255,255,255,0.15); }
+
 /* ── New Repo Modal ── */
 #newRepoModal {
   position: fixed; inset: 0; z-index: 600;
@@ -621,6 +671,7 @@ button.btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !import
     <button id="ghSettingsBtn" title="GitHub Settings">&#x2699;</button>
     <button id="pushBtn" disabled title="Commit &amp; Push to GitHub">&#x2191;</button>
     <button id="ghNewRepoBtn" title="Create a new GitHub repo + Pages site">+</button>
+    <button id="repoVisBtn" title="Choose which repos show in the bottom bar">&#x1F441;</button>
   </div>
 </div>
 
@@ -719,6 +770,18 @@ button.btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !import
   </div>
 </div>
 
+<div id="repoVisModal">
+  <div id="repoVisModalBox">
+    <h4>👁 Bottom Bar Repos</h4>
+    <div class="rv-hint">Choose which repos appear as tabs in the bottom bar. Unchecked repos stay in your list but won't show as tabs.</div>
+    <div class="rv-list" id="repoVisList"></div>
+    <div class="rv-row">
+      <button class="rv-btn" id="rvSelectAllBtn">☑ Select All</button>
+      <button class="rv-btn" id="rvCloseBtn">✕ Close</button>
+    </div>
+  </div>
+</div>
+
 <div id="toast"></div>
 <div id="astPanel"><h4>🧠 Local AST Health</h4><div id="astContent">Load a file to analyse.</div></div>
 <div id="errOverlay">
@@ -806,9 +869,15 @@ button.btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !import
       return;
     }
     var defaultFound = false;
-    ghRepos.forEach(r => {
+    ghRepos.forEach(r => { if (r.isDefault && !defaultFound) { ghCurrentRepo = r.name; defaultFound = true; } });
+    if (!defaultFound) { ghCurrentRepo = ghRepos[0].name; }
+    const visibleRepos = ghRepos.filter(r => r.visible !== false);
+    if (visibleRepos.length === 0) {
+      bar.innerHTML = '<span class="repo-bar-empty">⚠ All repos hidden — open 👁 to show</span>';
+    }
+    visibleRepos.forEach(r => {
       const btn = document.createElement('button');
-      btn.className = 'repo-btn' + (r.isDefault ? ' active' : '');
+      btn.className = 'repo-btn' + (r.name === ghCurrentRepo ? ' active' : '');
       btn.textContent = r.name.split('/').pop();
       btn.title = r.name + '\n(Drag to shortcut bar to pin)';
       btn.draggable = true;
@@ -824,9 +893,7 @@ button.btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !import
         await ghSyncFromRepo(r.name, false);
       });
       bar.appendChild(btn);
-      if (r.isDefault && !defaultFound) { ghCurrentRepo = r.name; defaultFound = true; }
     });
-    if (!defaultFound && ghRepos.length > 0) { ghCurrentRepo = ghRepos[0].name; bar.querySelector('.repo-btn').classList.add('active'); }
     document.getElementById('pushBtn').disabled = !ghCurrentRepo;
   }
   function ghRenderRepoPanelList() {
@@ -842,6 +909,43 @@ button.btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !import
     list.querySelectorAll('.gh-star').forEach(star => { star.addEventListener('click', e => { const idx = +e.target.dataset.idx; ghRepos.forEach((r,i) => r.isDefault = (i===idx)); ghSaveConfig(); ghRenderRepoPanelList(); ghBuildDropdown(); toast('★ Default repo set: ' + ghRepos[idx].name); }); });
     list.querySelectorAll('.gh-del').forEach(btn => { btn.addEventListener('click', e => { const idx = +e.target.dataset.idx; ghRepos.splice(idx,1); ghSaveConfig(); ghRenderRepoPanelList(); ghBuildDropdown(); }); });
   }
+
+  // ── Repo Visibility Modal — choose which repos show as tabs in the bottom bar ──
+  function renderRepoVisList() {
+    const list = document.getElementById('repoVisList');
+    list.innerHTML = '';
+    if (ghRepos.length === 0) { list.innerHTML = '<div class="rv-hint">No repos yet — add one in ⚙ GH settings first.</div>'; return; }
+    ghRepos.forEach((r, idx) => {
+      const row = document.createElement('div');
+      row.className = 'rv-item';
+      const checked = r.visible !== false;
+      row.innerHTML = `<input type="checkbox" id="rv-${idx}" data-idx="${idx}" ${checked ? 'checked' : ''}><label for="rv-${idx}">${r.name}</label>`;
+      list.appendChild(row);
+    });
+    list.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+      cb.addEventListener('change', (e) => {
+        const idx = +e.target.dataset.idx;
+        ghRepos[idx].visible = e.target.checked;
+        ghSaveConfig();
+        ghBuildDropdown();
+      });
+    });
+  }
+  document.getElementById('repoVisBtn').addEventListener('click', () => {
+    renderRepoVisList();
+    document.getElementById('repoVisModal').classList.add('open');
+    document.getElementById('repoVisBtn').classList.add('active');
+  });
+  document.getElementById('rvCloseBtn').addEventListener('click', () => {
+    document.getElementById('repoVisModal').classList.remove('open');
+    document.getElementById('repoVisBtn').classList.remove('active');
+  });
+  document.getElementById('rvSelectAllBtn').addEventListener('click', () => {
+    ghRepos.forEach(r => r.visible = true);
+    ghSaveConfig(); ghBuildDropdown(); renderRepoVisList();
+    toast('☑ All repos shown in bottom bar');
+  });
+
   async function ghSyncFromRepo(repoName, silent) {
     if (!ghToken || !repoName) return;
     const branch = ghBranch || 'main';
